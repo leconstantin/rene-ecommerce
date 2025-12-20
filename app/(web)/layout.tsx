@@ -1,6 +1,6 @@
-import Cta from "@/features/layout/cta";
-import SiteFooter from "@/features/layout/site-footer";
-import SiteHeader from "@/features/layout/site-header";
+import Cta from "@/components/layout/cta";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 
 export default function AppLayout(props: LayoutProps<"/">) {
   return (
