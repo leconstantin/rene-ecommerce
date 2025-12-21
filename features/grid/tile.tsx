@@ -48,3 +48,37 @@ export function GridTileImage({
     </div>
   );
 }
+
+export function NewGridTileImage({
+  isInteractive = true,
+  active,
+  label,
+  ...props
+}: {
+  isInteractive?: boolean;
+  active?: boolean;
+  label?: {
+    title: string;
+    amount: string;
+    currencyCode: string;
+    position?: "bottom" | "center";
+  };
+} & React.ComponentProps<typeof Image>) {
+  return (
+    <div
+      className={clsx(
+        "flex h-full w-full items-center justify-center overflow-hidden rounded-xl"
+      )}
+    >
+      {props.src ? (
+        <Image
+          className={clsx("relative h-full w-full object-contain", {
+            "transition-all duration-300 ease-in-out group-hover:scale-105":
+              isInteractive,
+          })}
+          {...props}
+        />
+      ) : null}
+    </div>
+  );
+}

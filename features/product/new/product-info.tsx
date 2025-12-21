@@ -5,10 +5,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ProductReviews from "../new/product-reviews";
+import ProductQuantity from "../new/quantity";
+import { RefundSheet } from "../new/refund-sheet";
 import { DescriptionSheet } from "./description-sheet";
-import ProductReviews from "./product-reviews";
-import ProductQuantity from "./quantity";
-import { RefundSheet } from "./refund-sheet";
 
 const colors = [
   { name: "Indigo", color: "#6366f1" },
