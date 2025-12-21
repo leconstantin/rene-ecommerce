@@ -96,7 +96,7 @@ async function SuspendedProduct(props: PageProps<"/product/[handle]">) {
       />
       <div className="container mx-auto w-full max-w-[1536px] pt-4">
         <ProductProvider>
-          <div className="flex flex-col rounded-lg border border-neutral-200 bg-white lg:flex-row dark:border-neutral-800 dark:bg-black">
+          <div className="flex flex-col rounded-lg border border-neutral-200 bg-white lg:flex-row">
             <div className="h-full w-full basis-full border-neutral-200 border-r px-6 lg:basis-3/5 dark:border-neutral-800">
               <Suspense
                 fallback={
