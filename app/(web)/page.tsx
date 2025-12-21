@@ -1,3 +1,11 @@
+import { HomeCarousel } from "@/features/home/home-carousel";
+import { ThreeItemGrid } from "@/features/home/three-item-grids";
+
 export default function Home() {
-  return <div className="p-20">Home page</div>;
+  return (
+    <>
+      <ThreeItemGrid />
+      <HomeCarousel />
+    </>
+  );
 }

@@ -6,7 +6,7 @@ export default function AppLayout(props: LayoutProps<"/">) {
   return (
     <div className="relative z-10 flex min-h-svh flex-col bg-background font-roboto dark:bg-black">
       <SiteHeader />
-      <main className="container-wrapper flex min-h-screen flex-1 flex-col">
+      <main className="relative flex min-h-svh flex-1 flex-col items-center justify-center bg-muted/50 selection:bg-teal-300 dark:selection:bg-pink-500 dark:selection:text-white">
         {props.children}
       </main>
       <Cta />
