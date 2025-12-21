@@ -1,28 +1,35 @@
 "use client";
 
-import {
-  HeartIcon,
-  ShareIcon,
-  SquareArrowLeftIcon,
-  StarIcon,
-  TruckIcon,
-} from "lucide-react";
+import { HeartIcon, ShareIcon, StarIcon, TruckIcon } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { DescriptionSheet } from "./description-sheet";
 import ProductReviews from "./product-reviews";
 import ProductQuantity from "./quantity";
+import { RefundSheet } from "./refund-sheet";
 
 const colors = [
-  { name: "Indigo", color: "indigo-500" },
-  { name: "Blue", color: "blue-600" },
-  { name: "Green", color: "green-400" },
-  { name: "Red", color: "red-500" },
+  { name: "Indigo", color: "#6366f1" },
+  { name: "Blue", color: "#2563eb" },
+  { name: "Green", color: "#4ade80" },
+  { name: "Red", color: "#ef4444" },
 ];
+
 const sizes = ["XS", "S", "M", "L", "XL"];
+const description = ` Wrap yourself in Comfrt and unplug with Airplane Mode. Made from our
+          ultra-soft Combed Cotton Blend™, this hoodie is built for long flights
+          and even longer naps. A built-in contoured eyemask lets you snooze in
+          peace, while zip sleeve pockets keep your phone and other essentials
+          secure.`;
 export default function ProductInfo() {
   const [activeColor, setActiveColor] = useState("Indigo");
   const currentColor = colors.find((c) => c.name === activeColor);
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success("Share Link Copied");
+  };
   return (
     <div className="flex flex-col gap-6">
       {/* product */}
@@ -45,7 +52,7 @@ export default function ProductInfo() {
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-2 font-medium text-[16px]">
+          <div className="flex items-center gap-2 font-medium text-base">
             <p>$65.00</p>
             <p className="text-muted-foreground line-through">$120.00</p>
           </div>
@@ -67,18 +74,19 @@ export default function ProductInfo() {
             <span className="font-medium">Colors</span> {currentColor?.name}
           </p>
           <div className="flex items-center gap-3">
-            {colors.map((color) => (
+            {colors.map((c) => (
               <button
                 className={cn(
                   "rounded-full p-0.5 ring ring-muted hover:ring-black",
-                  activeColor === color.name ? "ring-black" : ""
+                  activeColor === c.name ? "ring-black" : ""
                 )}
-                key={color.name}
-                onClick={() => setActiveColor(color.name)}
+                key={c.name}
+                onClick={() => setActiveColor(c.name)}
                 type="button"
               >
                 <div
-                  className={`size-8 rounded-full bg-${color.color} hover:bg-${color.color}`}
+                  className={`size-8 rounded-full bg-${c.color} hover:bg-${c.color}`}
+                  style={{ backgroundColor: c.color }}
                 />
               </button>
             ))}
@@ -109,7 +117,10 @@ export default function ProductInfo() {
       </div>
       {/* product actions */}
       <div className="flex flex-col gap-2.5">
-        <Button className="rounded-full bg-[#5433eb]" size="xl">
+        <Button
+          className="rounded-full bg-[#5433eb] hover:bg-[#4524db]"
+          size="xl"
+        >
           Add to cart
         </Button>
         <Button className="rounded-full" size="xl">
@@ -120,24 +131,31 @@ export default function ProductInfo() {
             <HeartIcon />
             Save
           </Button>
-          <Button className="flex-1 rounded-full" size="lg" variant={"outline"}>
+          <Button
+            className="flex-1 rounded-full"
+            onClick={handleShare}
+            size="lg"
+            variant={"outline"}
+          >
             <ShareIcon />
             Share
           </Button>
         </div>
       </div>
       <div>
-        <p className="line-clamp-3 text-foreground/90 leading-5">
-          Wrap yourself in Comfrt and unplug with Airplane Mode. Made from our
-          ultra-soft Combed Cotton Blend™, this hoodie is built for long flights
-          and even longer naps. A built-in contoured eyemask lets you snooze in
-          peace, while zip sleeve po
+        <p className="text-foreground/90 leading-5">
+          {/* show only 20 words in decsription and if it its lenghth is more than that show view more btn */}
+          {description.length > 200 ? (
+            <>
+              {description.slice(0, 200)}
+              <DescriptionSheet />
+            </>
+          ) : (
+            description
+          )}
         </p>
       </div>
-      <Button className="w-fit rounded-full" size="lg" variant={"outline"}>
-        <SquareArrowLeftIcon />
-        Refund Policy
-      </Button>
+      <RefundSheet />
       <ProductReviews />
     </div>
   );

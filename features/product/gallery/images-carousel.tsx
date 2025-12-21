@@ -37,8 +37,8 @@ export function ImagesCarousel() {
     api.scrollTo(index);
   };
   return (
-    <div className="sticky top-6 flex gap-2">
-      <div className="flex flex-col gap-2">
+    <div className="top-6 flex gap-2 lg:sticky">
+      <div className="hidden flex-col gap-2 md:flex">
         {images.map((image, index) => (
           <li className="size-16 list-none" key={image.src}>
             <button
@@ -59,7 +59,7 @@ export function ImagesCarousel() {
         ))}
       </div>
       <div className="mx-auto max-w-lg">
-        <Carousel className="w-full" setApi={setApi}>
+        <Carousel className="w-full md:basis-1/2" setApi={setApi}>
           <CarouselContent>
             {images.map((image) => (
               <CarouselItem key={image.src}>

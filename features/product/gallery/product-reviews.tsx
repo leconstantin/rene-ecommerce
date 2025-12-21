@@ -1,5 +1,4 @@
-import { ArrowRightIcon, StarIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { StarIcon } from "lucide-react";
 import {
   Card,
   CardAction,
@@ -13,6 +12,8 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { userReviews } from "@/config/data";
+import { ReviewSheet } from "./review-sheet";
 
 export default function ProductReviews() {
   return (
@@ -36,9 +37,7 @@ export default function ProductReviews() {
           </div>
         </CardDescription>
         <CardAction>
-          <Button className="rounded-full" size="icon-lg" variant={"outline"}>
-            <ArrowRightIcon />
-          </Button>
+          <ReviewSheet />
         </CardAction>
       </CardHeader>
       <CardContent>
@@ -48,42 +47,18 @@ export default function ProductReviews() {
   );
 }
 
-const userReviews = [
-  {
-    content: ` The. Red is actually Red and Comfy My sweatshirt arrived fast and
-          beautiful 😍 It is beyond my expectations. I love the comfort, the
-          quality and fit. The red was true ruby red. I have purchased red items
-          in the past that was not truly red but rather pinkish. My Comfy
-          sweatshirt matches my red lipstick. I purchased the one with the eye
-          visor/ mask. I can't wait to fly somewhere.`,
-    name: "Kamilah",
-    when: "Yesterday",
-    reviews: 5,
-  },
-  {
-    content: ` The. Red is actually Red and Comfy My sweatshirt arrived fast and
-          beautiful 😍 It is beyond my expectations. I love the comfort, the
-          quality and fit. The red was true ruby red. I have purchased red items
-          in the past that was not truly red but rather pinkish. My Comfy
-          sweatshirt matches my red lipstick. I purchased the one with the eye
-          visor/ mask. I can't wait to fly somewhere.`,
-    name: "Lecon",
-    when: "4 days ago",
-    reviews: 3,
-  },
-];
 export function ProductReviewsCards() {
   return (
     <Carousel className="w-full">
       <CarouselContent>
         {userReviews.map((r, i) => (
           <CarouselItem
-            className="min-h-[170px] w-[200px] max-w-[360px]"
+            className="min-h-[170px] w-[200px] max-w-[300px] cursor-pointer"
             key={i}
           >
             <Card>
               <CardContent className="space-y-5">
-                <p className="line-clamp-3 leading-5 tracking-tight">
+                <p className="line-clamp-2 leading-5 tracking-tight">
                   {r.content}
                 </p>
                 <div className="flex flex-col gap-2">
