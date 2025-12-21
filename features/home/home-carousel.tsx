@@ -14,7 +14,7 @@ export async function HomeCarousel() {
   const carouselProducts = [...products, ...products, ...products];
 
   return (
-    <div className="w-full overflow-x-auto px-4 pt-1 pb-6">
+    <div className="container w-full overflow-x-auto py-4 pt-1 pb-6">
       <CarouselCards carouselProducts={carouselProducts} />
     </div>
   );

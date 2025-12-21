@@ -1,11 +1,10 @@
 import { ShoppingCartIcon } from "lucide-react";
-import type { Route } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import LogoSquare from "@/components/icons/logo-square";
 import { Button } from "@/components/ui/button";
 import { getMenu } from "@/shopify/index";
-import type { Menu } from "@/shopify/types";
+import MenuItems from "./menu-items";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
 
@@ -15,7 +14,7 @@ export async function SiteHeader() {
   const menu = await getMenu("frontend-header-menu");
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
+    <nav className="container relative flex items-center justify-between py-4">
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={menu} />
@@ -33,21 +32,9 @@ export async function SiteHeader() {
               {SITE_NAME}
             </div>
           </Link>
-          {menu.length ? (
-            <ul className="hidden gap-6 text-sm md:flex md:items-center">
-              {menu.map((item: Menu) => (
-                <li key={item.title}>
-                  <Link
-                    className="text-muted-foreground text-sm underline-offset-4 hover:text-primary hover:underline"
-                    href={item.path as Route}
-                    prefetch={true}
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <Suspense fallback={null}>
+            <MenuItems menu={menu} />
+          </Suspense>
         </div>
         <div className="hidden justify-center md:flex md:w-1/3">
           <Suspense fallback={<SearchSkeleton />}>

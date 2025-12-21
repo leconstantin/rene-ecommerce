@@ -8,7 +8,7 @@ const fontInter = Inter({
 const fontRoboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "700"],
 });
 const geistSans = Geist({
   variable: "--font-geist-sans",
