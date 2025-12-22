@@ -1,33 +1,21 @@
 "use client";
 
 import { HeartIcon, ShareIcon, StarIcon, TruckIcon } from "lucide-react";
-import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import Price from "@/features/_shared/price";
+import type { Product } from "@/shopify/types";
 import ProductReviews from "../new/product-reviews";
 import ProductQuantity from "../new/quantity";
 import { RefundSheet } from "../new/refund-sheet";
 import { DescriptionSheet } from "./description-sheet";
+import { ProductVariantsSelector } from "./product-variants";
 
-const colors = [
-  { name: "Indigo", color: "#6366f1" },
-  { name: "Blue", color: "#2563eb" },
-  { name: "Green", color: "#4ade80" },
-  { name: "Red", color: "#ef4444" },
-];
-
-const sizes = ["XS", "S", "M", "L", "XL"];
-const description = ` Wrap yourself in Comfrt and unplug with Airplane Mode. Made from our
-          ultra-soft Combed Cotton Blend™, this hoodie is built for long flights
-          and even longer naps. A built-in contoured eyemask lets you snooze in
-          peace, while zip sleeve pockets keep your phone and other essentials
-          secure.`;
-export default function ProductInfo() {
-  const [activeColor, setActiveColor] = useState("Indigo");
-  const currentColor = colors.find((c) => c.name === activeColor);
+export default function ProductInfo({ product }: { product: Product }) {
   const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_SITE_LOGO}/product/${product.handle}`
+    );
     toast.success("Share Link Copied");
   };
   return (
@@ -37,9 +25,7 @@ export default function ProductInfo() {
         {/* {product name and price} */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col items-start gap-1.5">
-            <h2 className="font-medium text-2xl">
-              Airplane Mode Travel Hoodie
-            </h2>
+            <h2 className="font-medium text-2xl">{product.title}</h2>
             <div className="flex items-center gap-0.5">
               {Array.from({ length: 5 }).map((_, index) => (
                 <StarIcon
@@ -53,8 +39,17 @@ export default function ProductInfo() {
             </div>
           </div>
           <div className="flex items-center gap-2 font-medium text-base">
-            <p>$65.00</p>
-            <p className="text-muted-foreground line-through">$120.00</p>
+            <Price
+              amount={product.priceRange.minVariantPrice.amount}
+              currencyCode={product.priceRange.minVariantPrice.currencyCode}
+              showCurrencyCode={false}
+            />
+            <Price
+              amount={product.priceRange.minVariantPrice.amount}
+              className="text-muted-foreground line-through"
+              currencyCode={product.priceRange.minVariantPrice.currencyCode}
+              showCurrencyCode={false}
+            />
           </div>
         </div>
         {/* {shipping info} */}
@@ -68,47 +63,10 @@ export default function ProductInfo() {
       </div>
       {/* product options */}
       <div className="flex flex-col gap-4">
-        {/* colors */}
-        <div className="space-y-2">
-          <p className="text-sm capitalize">
-            <span className="font-medium">Colors</span> {currentColor?.name}
-          </p>
-          <div className="flex items-center gap-3">
-            {colors.map((c) => (
-              <button
-                className={cn(
-                  "rounded-full p-0.5 ring ring-muted hover:ring-black",
-                  activeColor === c.name ? "ring-black" : ""
-                )}
-                key={c.name}
-                onClick={() => setActiveColor(c.name)}
-                type="button"
-              >
-                <div
-                  className={`size-8 rounded-full bg-${c.color} hover:bg-${c.color}`}
-                  style={{ backgroundColor: c.color }}
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-        {/* sizes */}
-        <div className="space-y-2">
-          <p className="text-sm capitalize">
-            <span className="font-medium">Sizes</span> XL
-          </p>
-          <div className="flex items-center gap-3">
-            {sizes.map((size) => (
-              <Button
-                className="rounded-full font-medium ring ring-muted hover:bg-transparent hover:ring-black"
-                key={size}
-                variant={"outline"}
-              >
-                {size}
-              </Button>
-            ))}
-          </div>
-        </div>
+        <ProductVariantsSelector
+          options={product.options}
+          variants={product.variants}
+        />
         {/* quantity */}
         <div className="space-y-2">
           <p className="font-medium text-sm capitalize">Quantity</p>
@@ -145,13 +103,13 @@ export default function ProductInfo() {
       <div>
         <p className="text-foreground/90 leading-5">
           {/* show only 20 words in decsription and if it its lenghth is more than that show view more btn */}
-          {description.length > 200 ? (
+          {product.description.length > 20 ? (
             <>
-              {description.slice(0, 200)}
-              <DescriptionSheet />
+              {product.description.slice(0, 20)}
+              <DescriptionSheet productDescription={product.descriptionHtml} />
             </>
           ) : (
-            description
+            product.description
           )}
         </p>
       </div>
@@ -160,3 +118,45 @@ export default function ProductInfo() {
     </div>
   );
 }
+
+//  {/* colors */}
+//         {/* <div className="space-y-2">
+//           <p className="text-sm capitalize">
+//             <span className="font-medium">Colors</span> {currentColor?.name}
+//           </p>
+//           <div className="flex items-center gap-3">
+//             {colors.map((c) => (
+//               <button
+//                 className={cn(
+//                   "rounded-full p-0.5 ring ring-muted hover:ring-black",
+//                   activeColor === c.name ? "ring-black" : ""
+//                 )}
+//                 key={c.name}
+//                 onClick={() => setActiveColor(c.name)}
+//                 type="button"
+//               >
+//                 <div
+//                   className={`size-8 rounded-full bg-${c.color} hover:bg-${c.color}`}
+//                   style={{ backgroundColor: c.color }}
+//                 />
+//               </button>
+//             ))}
+//           </div>
+//         </div> */}
+//         {/* sizes */}
+//         {/* <div className="space-y-2">
+//           <p className="text-sm capitalize">
+//             <span className="font-medium">Sizes</span> XL
+//           </p>
+//           <div className="flex items-center gap-3">
+//             {sizes.map((size) => (
+//               <Button
+//                 className="rounded-full font-medium ring ring-muted hover:bg-transparent hover:ring-black"
+//                 key={size}
+//                 variant={"outline"}
+//               >
+//                 {size}
+//               </Button>
+//             ))}
+//           </div>
+//         </div> */}

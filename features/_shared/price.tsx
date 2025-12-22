@@ -5,11 +5,13 @@ const Price = ({
   className,
   currencyCode = "USD",
   currencyCodeClassName,
+  showCurrencyCode = true,
 }: {
   amount: string;
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
+  showCurrencyCode?: boolean;
 } & React.ComponentProps<"p">) => (
   <p className={className} suppressHydrationWarning={true}>
     {`${new Intl.NumberFormat(undefined, {
@@ -17,9 +19,11 @@ const Price = ({
       currency: currencyCode,
       currencyDisplay: "narrowSymbol",
     }).format(Number.parseFloat(amount))}`}
-    <span
-      className={clsx("ml-1 inline", currencyCodeClassName)}
-    >{`${currencyCode}`}</span>
+    {showCurrencyCode ? (
+      <span
+        className={clsx("ml-1 inline", currencyCodeClassName)}
+      >{`${currencyCode}`}</span>
+    ) : null}
   </p>
 );
 

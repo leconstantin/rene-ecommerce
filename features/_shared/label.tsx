@@ -17,7 +17,7 @@ const Label = ({
       "@container/label absolute bottom-0 left-0 flex w-full px-4 pb-4",
       {
         "lg:px-20 lg:pb-[35%]": position === "center",
-      },
+      }
     )}
   >
     <div className="flex items-center rounded-full border bg-white/70 p-1 font-semibold text-black text-xs backdrop-blur-md dark:border-neutral-800 dark:bg-black/70 dark:text-white">

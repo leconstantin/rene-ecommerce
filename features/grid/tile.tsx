@@ -67,7 +67,7 @@ export function NewGridTileImage({
   return (
     <div
       className={clsx(
-        "flex h-full w-full items-center justify-center overflow-hidden rounded-xl"
+        "flex h-full w-full items-center justify-center overflow-hidden rounded-xl bg-white shadow"
       )}
     >
       {props.src ? (

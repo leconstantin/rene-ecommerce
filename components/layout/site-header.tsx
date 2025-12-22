@@ -42,7 +42,7 @@ export async function SiteHeader() {
           </Suspense>
         </div>
         <div className="flex items-center justify-end gap-4 md:w-1/3">
-          <Button className="text-sm" variant={"outline"}>
+          <Button className="text-sm" size="icon-lg" variant={"outline"}>
             <ShoppingCartIcon />
           </Button>
         </div>
