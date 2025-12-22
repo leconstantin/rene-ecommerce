@@ -3,7 +3,11 @@
 import { SearchIcon } from "lucide-react";
 import Form from "next/form";
 import { useSearchParams } from "next/navigation";
-import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 
 export default function Search({ onSubmit }: { onSubmit?: () => void }) {
   const searchParams = useSearchParams();
@@ -14,18 +18,19 @@ export default function Search({ onSubmit }: { onSubmit?: () => void }) {
       className="relative w-full w-max-[550px] lg:w-80 xl:w-full"
       onSubmit={onSubmit}
     >
-      <Input
-        autoComplete="off"
-        className="shadow-none"
-        defaultValue={searchParams?.get("q") || ""}
-        key={searchParams?.get("q")}
-        name="q"
-        placeholder="Search for products..."
-        type="text"
-      />
-      <div className="absolute top-0 right-0 mr-3 flex h-full items-center">
-        <SearchIcon className="h-4 text-muted-foreground" />
-      </div>
+      <InputGroup>
+        <InputGroupInput
+          autoComplete="off"
+          defaultValue={searchParams?.get("q") || ""}
+          key={searchParams?.get("q")}
+          name="q"
+          placeholder="Search for products..."
+          type="text"
+        />
+        <InputGroupAddon>
+          <SearchIcon />
+        </InputGroupAddon>
+      </InputGroup>
     </Form>
   );
 }

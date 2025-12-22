@@ -5,7 +5,9 @@ export default function Home() {
   return (
     <>
       <ThreeItemGrid />
-      <HomeCarousel />
+      <div className="container space-y-4 bg-white py-4 lg:bg-transparent">
+        <HomeCarousel />
+      </div>
     </>
   );
 }
