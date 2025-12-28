@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Grid from "@/features/grid";
-import { RelatedProduct } from "@/features/product/new/related-product";
+import { ProductCard } from "@/features/product/product-card";
 import { defaultSort, sorting } from "@/shopify/constants";
 import { getCollection, getCollectionProducts } from "@/shopify/index";
 
@@ -45,7 +45,7 @@ export default async function CategoryPage(
       ) : (
         <Grid className="animate-fadeIn grid-cols-1 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product, index) => (
-            <RelatedProduct key={index} product={product} />
+            <ProductCard key={index} product={product} />
           ))}
         </Grid>
       )}

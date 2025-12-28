@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getCollectionProducts } from "@/shopify";
-import { RelatedProduct } from "../product/new/related-product";
+import { ProductCard } from "../product/product-card";
 export async function HomeCarousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
   const products = await getCollectionProducts({
@@ -18,9 +18,6 @@ export async function HomeCarousel() {
   }
 
   return (
-    // <div className="container w-full overflow-x-auto py-4 pt-1 pb-6">
-    //   <CarouselCards carouselProducts={carouselProducts} />
-    // </div>
     <div className="rounded-lg bg-white py-6 lg:p-6 lg:px-8">
       <Carousel>
         <div className="space-y-5">
@@ -39,7 +36,7 @@ export async function HomeCarousel() {
                 className="sm:basis-1/2 md:basis-1/4 lg:basis-1/5"
                 key={product.id}
               >
-                <RelatedProduct product={product} />
+                <ProductCard product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>

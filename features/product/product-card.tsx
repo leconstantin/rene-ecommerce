@@ -5,7 +5,7 @@ import Price from "@/features/_shared/price";
 import { NewGridTileImage } from "@/features/grid/tile";
 import type { Product } from "@/shopify/types";
 
-export function RelatedProduct({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       className="group flex cursor-pointer flex-col gap-3"

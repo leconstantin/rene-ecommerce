@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getProductRecommendations } from "@/shopify";
-import { RelatedProduct } from "./related-product";
+import { ProductCard } from "./product-card";
 export default async function RelatedProducts({ id }: { id: string }) {
   const relatedProducts = await getProductRecommendations(id);
 
@@ -32,7 +32,7 @@ export default async function RelatedProducts({ id }: { id: string }) {
                 className="sm:basis-1/2 md:basis-1/4 lg:basis-1/5"
                 key={product.id}
               >
-                <RelatedProduct product={product} />
+                <ProductCard product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>

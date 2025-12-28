@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { ImagesCarousel } from "@/features/product/new/images-carousel";
-import ProductInfo from "@/features/product/new/product-info";
-import RelatedProducts from "@/features/product/new/related-products";
+import { ImagesCarousel } from "@/features/product/images-carousel";
 import { ProductProvider } from "@/features/product/product-context";
+import ProductInfo from "@/features/product/product-info";
+import RelatedProducts from "@/features/product/related-products";
 import { getProduct } from "@/shopify";
 
 export default function ProductPage(props: PageProps<"/product/[handle]">) {

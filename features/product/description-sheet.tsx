@@ -1,4 +1,5 @@
 import { XIcon } from "lucide-react";
+import Prose from "@/components/custom/prose";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -10,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Prose from "../prose";
 
 export function DescriptionSheet({
   productDescription,

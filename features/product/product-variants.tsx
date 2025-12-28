@@ -1,6 +1,7 @@
 "use client";
 
-import clsx from "clsx";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { ProductOption, ProductVariant } from "@/shopify/types";
 import { useProduct, useUpdateURL } from "./product-context";
 
@@ -10,7 +11,7 @@ type Combination = {
   [key: string]: string | boolean;
 };
 
-export function VariantSelector({
+export function ProductVariantsSelector({
   options,
   variants,
 }: {
@@ -37,8 +38,12 @@ export function VariantSelector({
   }));
   return options.map((option) => (
     <form key={option.id}>
-      <dl className="mb-8">
-        <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
+      <dl className="space-y-2">
+        {/* <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt> */}
+        <dt className="text-sm capitalize">
+          <span className="font-medium">{option.name}</span>{" "}
+          {state[option.name.toLowerCase()]}
+        </dt>
         <dd className="flex flex-wrap gap-3">
           {option.values.map((value) => {
             const optionNameLowerCase = option.name.toLowerCase();
@@ -67,17 +72,11 @@ export function VariantSelector({
             const isActive = state[optionNameLowerCase] === value;
 
             return (
-              <button
+              <Button
                 aria-disabled={!isAvailableForSale}
-                className={clsx(
-                  "flex min-w-12 items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900",
-                  {
-                    "cursor-default ring-2 ring-blue-600": isActive,
-                    "ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-blue-600":
-                      !isActive && isAvailableForSale,
-                    "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 dark:before:bg-neutral-700":
-                      !isAvailableForSale,
-                  }
+                className={cn(
+                  "rounded-full font-medium text-sm ring ring-muted hover:bg-transparent hover:ring-black",
+                  isActive && "ring-brand"
                 )}
                 disabled={!isAvailableForSale}
                 formAction={() => {
@@ -85,13 +84,35 @@ export function VariantSelector({
                   updateUrl(newState);
                 }}
                 key={value}
-                title={`${option.name} ${value}${
-                  isAvailableForSale ? "" : " (Out of Stock)"
-                }`}
-                type="submit"
+                variant={"outline"}
               >
                 {value}
-              </button>
+              </Button>
+              //   <button
+              //     aria-disabled={!isAvailableForSale}
+              //     className={clsx(
+              //       "flex min-w-12 items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900",
+              //       {
+              //         "cursor-default ring-2 ring-blue-600": isActive,
+              //         "ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-blue-600":
+              //           !isActive && isAvailableForSale,
+              //         "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 dark:before:bg-neutral-700":
+              //           !isAvailableForSale,
+              //       }
+              //     )}
+              //     disabled={!isAvailableForSale}
+              //     formAction={() => {
+              //       const newState = updateOption(optionNameLowerCase, value);
+              //       updateUrl(newState);
+              //     }}
+              //     key={value}
+              //     title={`${option.name} ${value}${
+              //       isAvailableForSale ? "" : " (Out of Stock)"
+              //     }`}
+              //     type="submit"
+              //   >
+              //     {value}
+              //   </button>
             );
           })}
         </dd>

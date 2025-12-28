@@ -59,7 +59,7 @@ export function ImagesCarousel({ images }: { images: ShopifyImage[] }) {
           <CarouselContent>
             {images.map((image) => (
               <CarouselItem key={image.url}>
-                <CardContent className="mx-auto flex aspect-3/4 max-w-sm items-center justify-center p-0">
+                <CardContent className="mx-auto flex aspect-auto max-w-sm items-center justify-center p-0">
                   <Image
                     alt={image.altText}
                     className="h-full w-full rounded-xl object-cover"

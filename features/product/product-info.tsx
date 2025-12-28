@@ -5,11 +5,11 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Price from "@/features/_shared/price";
 import type { Product } from "@/shopify/types";
-import ProductReviews from "../new/product-reviews";
-import ProductQuantity from "../new/quantity";
-import { RefundSheet } from "../new/refund-sheet";
 import { DescriptionSheet } from "./description-sheet";
+import ProductReviews from "./product-reviews";
 import { ProductVariantsSelector } from "./product-variants";
+import ProductQuantity from "./quantity";
+import { RefundSheet } from "./refund-sheet";
 
 export default function ProductInfo({ product }: { product: Product }) {
   const handleShare = () => {
@@ -76,7 +76,7 @@ export default function ProductInfo({ product }: { product: Product }) {
       {/* product actions */}
       <div className="flex flex-col gap-2.5">
         <Button
-          className="rounded-full bg-[#5433eb] hover:bg-[#4524db]"
+          className="rounded-full bg-brand hover:bg-brand-hover"
           size="xl"
         >
           Add to cart

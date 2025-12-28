@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Grid from "@/features/grid";
-import { RelatedProduct } from "@/features/product/new/related-product";
+import { ProductCard } from "@/features/product/product-card";
 import { defaultSort, sorting } from "@/shopify/constants";
 import { getProducts } from "@/shopify/index";
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export default async function SearchPage(props: {
       {products.length > 0 ? (
         <Grid className="animate-fadeIn grid-cols-1 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product, index) => (
-            <RelatedProduct key={index} product={product} />
+            <ProductCard key={index} product={product} />
           ))}
         </Grid>
       ) : null}
