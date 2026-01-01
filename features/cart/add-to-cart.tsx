@@ -23,7 +23,7 @@ function SubmitButton({
     return (
       <Button
         aria-label="Out of stock"
-        className="rounded-full bg-brand hover:bg-brand-hover"
+        className="w-full rounded-full bg-brand hover:bg-brand-hover"
         disabled
         size="xl"
       >
@@ -36,7 +36,7 @@ function SubmitButton({
     return (
       <Button
         aria-label="Please select an option"
-        className="rounded-full bg-brand hover:bg-brand-hover"
+        className="w-full rounded-full bg-brand hover:bg-brand-hover"
         disabled
         size="xl"
       >
@@ -100,7 +100,11 @@ export function AddToCart({
 
   return (
     <form action={handleSubmit}>
-      <input name="selectedVariantId" type="hidden" value={selectedVariantId} />
+      <input
+        name="selectedVariantId"
+        type="hidden"
+        value={selectedVariantId || ""}
+      />
       <input name="quantity" type="hidden" value={quantity} />
       <SubmitButton
         availableForSale={availableForSale}

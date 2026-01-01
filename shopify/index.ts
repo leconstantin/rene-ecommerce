@@ -422,7 +422,16 @@ export async function addToCart(
     },
     cache: "no-store",
   });
-  return reshapeCart(res.body.data.cartLinesAdd.cart);
+
+  const cartLinesAdd = res.body.data.cartLinesAdd;
+  if (cartLinesAdd.userErrors?.length > 0) {
+    console.error(
+      "shopify.addToCart: userErrors =",
+      JSON.stringify(cartLinesAdd.userErrors, null, 2)
+    );
+  }
+
+  return reshapeCart(cartLinesAdd.cart);
 }
 
 export async function removeFromCart(lineIds: string[]): Promise<Cart> {

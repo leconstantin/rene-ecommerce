@@ -98,7 +98,7 @@ export default function ProductInfo({ product }: { product: Product }) {
           <input
             name="selectedVariantId"
             type="hidden"
-            value={selectedVariantId}
+            value={selectedVariantId || ""}
           />
           <input name="quantity" type="hidden" value={quantity} />
           <Button
