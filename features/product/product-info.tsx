@@ -1,17 +1,34 @@
 "use client";
 
 import { HeartIcon, ShareIcon, StarIcon, TruckIcon } from "lucide-react";
+import { useActionState, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Price from "@/features/_shared/price";
-import type { Product } from "@/shopify/types";
+import type { Product, ProductVariant } from "@/shopify/types";
+import { buyNow } from "../cart/actions";
+import { AddToCart } from "../cart/add-to-cart";
 import { DescriptionSheet } from "./description-sheet";
+import { useProduct } from "./product-context";
 import ProductReviews from "./product-reviews";
 import { ProductVariantsSelector } from "./product-variants";
 import ProductQuantity from "./quantity";
 import { RefundSheet } from "./refund-sheet";
 
 export default function ProductInfo({ product }: { product: Product }) {
+  const { state } = useProduct();
+  const [quantity, setQuantity] = useState(1);
+  const [, formAction] = useActionState(buyNow, null);
+
+  // Get selected variant (same logic as AddToCart)
+  const variant = product.variants.find((v: ProductVariant) =>
+    v.selectedOptions.every(
+      (option) => option.value === state[option.name.toLowerCase()]
+    )
+  );
+  const defaultVariantId =
+    product.variants.length === 1 ? product.variants[0]?.id : undefined;
+  const selectedVariantId = variant?.id || defaultVariantId;
   const handleShare = () => {
     navigator.clipboard.writeText(
       `${process.env.NEXT_PUBLIC_SITE_LOGO}/product/${product.handle}`
@@ -58,7 +75,7 @@ export default function ProductInfo({ product }: { product: Product }) {
             <TruckIcon className="size-4" />
             <p className="text-sm">Shipping calculated at checkout</p>
           </div>
-          <p className="text-blue-600 text-sm">Add address</p>
+          <p className="text-brand text-sm">Add address</p>
         </div>
       </div>
       {/* product options */}
@@ -70,20 +87,29 @@ export default function ProductInfo({ product }: { product: Product }) {
         {/* quantity */}
         <div className="space-y-2">
           <p className="font-medium text-sm capitalize">Quantity</p>
-          <ProductQuantity />
+          <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
       {/* product actions */}
       <div className="flex flex-col gap-2.5">
-        <Button
-          className="rounded-full bg-brand hover:bg-brand-hover"
-          size="xl"
-        >
-          Add to cart
-        </Button>
-        <Button className="rounded-full" size="xl">
-          Buy now
-        </Button>
+        <AddToCart product={product} quantity={quantity} />
+
+        <form action={formAction} className="w-full">
+          <input
+            name="selectedVariantId"
+            type="hidden"
+            value={selectedVariantId}
+          />
+          <input name="quantity" type="hidden" value={quantity} />
+          <Button
+            className="w-full rounded-full"
+            disabled={!(selectedVariantId && product.availableForSale)}
+            size="xl"
+            type="submit"
+          >
+            Buy now
+          </Button>
+        </form>
         <div className="flex w-full gap-2.5">
           <Button className="flex-1 rounded-full" size="lg" variant={"outline"}>
             <HeartIcon />

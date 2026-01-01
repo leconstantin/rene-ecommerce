@@ -1,7 +1,8 @@
 /** biome-ignore-all lint/style/useThrowOnlyError: <explanation> */
+/** biome-ignore-all lint/style/noNonNullAssertion: <explanation> */
 
 import { cacheLife, cacheTag, revalidateTag } from "next/cache";
-import { headers as NextHeaders } from "next/headers";
+import { cookies, headers as NextHeaders } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 import { ensureStartsWith } from "@/lib/utils";
 import {
@@ -9,6 +10,13 @@ import {
   SHOPIFY_GRAPHQL_API_ENDPOINT,
   TAGS,
 } from "./constants";
+import {
+  addToCartMutation,
+  createCartMutation,
+  editCartItemsMutation,
+  removeFromCartMutation,
+} from "./mutations/cart";
+import { getCartQuery } from "./queries/cart";
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
@@ -23,16 +31,21 @@ import {
 } from "./queries/product";
 import { isShopifyError } from "./type-guards";
 import type {
+  Cart,
   Collection,
   Connection,
   Image,
   Menu,
   Page,
   Product,
+  ShopifyAddToCartOperation,
+  ShopifyCart,
+  ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
+  ShopifyCreateCartOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -40,6 +53,8 @@ import type {
   ShopifyProductOperation,
   ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation,
+  ShopifyRemoveFromCartOperation,
+  ShopifyUpdateCartOperation,
 } from "./types";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -360,6 +375,116 @@ export async function getProductRecommendations(
   });
 
   return reshapeProducts(res.body.data.productRecommendations);
+}
+
+// cart
+function reshapeCart(cart: ShopifyCart): Cart {
+  if (!cart.cost?.totalTaxAmount) {
+    cart.cost.totalTaxAmount = {
+      amount: "0.0",
+      currencyCode: "USD",
+    };
+  }
+
+  return {
+    ...cart,
+    lines: removeEdgesAndNodes(cart.lines),
+  };
+}
+
+export async function createCart(): Promise<Cart> {
+  const res = await shopifyFetch<ShopifyCreateCartOperation>({
+    query: createCartMutation,
+    cache: "no-store",
+  });
+
+  return reshapeCart(res.body.data.cartCreate.cart);
+}
+
+export async function addToCart(
+  lines: { merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+  console.log("shopify.addToCart: lines =", lines);
+  let cartId = (await cookies()).get("cartId")?.value;
+
+  // If no cart exists, create one first
+  if (!cartId) {
+    const newCart = await createCart();
+    cartId = newCart.id!;
+    (await cookies()).set("cartId", cartId);
+  }
+
+  const res = await shopifyFetch<ShopifyAddToCartOperation>({
+    query: addToCartMutation,
+    variables: {
+      cartId,
+      lines,
+    },
+    cache: "no-store",
+  });
+  return reshapeCart(res.body.data.cartLinesAdd.cart);
+}
+
+export async function removeFromCart(lineIds: string[]): Promise<Cart> {
+  const cartId = (await cookies()).get("cartId")?.value;
+
+  if (!cartId) {
+    throw new Error("No cart found to remove items from");
+  }
+
+  const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
+    query: removeFromCartMutation,
+    variables: {
+      cartId,
+      lineIds,
+    },
+    cache: "no-store",
+  });
+
+  return reshapeCart(res.body.data.cartLinesRemove.cart);
+}
+
+export async function updateCart(
+  lines: { id: string; merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+  const cartId = (await cookies()).get("cartId")?.value;
+
+  if (!cartId) {
+    throw new Error("No cart found to update");
+  }
+
+  const res = await shopifyFetch<ShopifyUpdateCartOperation>({
+    query: editCartItemsMutation,
+    variables: {
+      cartId,
+      lines,
+    },
+    cache: "no-store",
+  });
+
+  return reshapeCart(res.body.data.cartLinesUpdate.cart);
+}
+
+export async function getCart(): Promise<Cart | undefined> {
+  "use cache: private";
+  const cartId = (await cookies()).get("cartId")?.value;
+
+  if (!cartId) {
+    return;
+  }
+
+  const res = await shopifyFetch<ShopifyCartOperation>({
+    query: getCartQuery,
+    variables: { cartId },
+    tags: [TAGS.cart],
+  });
+
+  // Old carts becomes `null` when you checkout.
+  if (!res.body.data.cart) {
+    return;
+  }
+
+  return reshapeCart(res.body.data.cart);
 }
 
 export async function getPage(handle: string): Promise<Page> {

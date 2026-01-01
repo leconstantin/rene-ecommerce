@@ -1,9 +1,13 @@
 import { MinusIcon, PlusIcon } from "lucide-react";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-export default function ProductQuantity() {
-  const [quantity, setQuantity] = useState(1);
+export default function ProductQuantity({
+  quantity,
+  setQuantity,
+}: {
+  quantity: number;
+  setQuantity: (quantity: number | ((prev: number) => number)) => void;
+}) {
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1);
   };

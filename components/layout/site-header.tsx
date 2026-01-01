@@ -1,8 +1,7 @@
-import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import LogoSquare from "@/components/icons/logo-square";
-import { Button } from "@/components/ui/button";
+import CartModal from "@/features/cart/modal";
 import { getMenu } from "@/shopify/index";
 import MenuItems from "./menu-items";
 import MobileMenu from "./mobile-menu";
@@ -42,9 +41,10 @@ export async function SiteHeader() {
           </Suspense>
         </div>
         <div className="flex items-center justify-end gap-4 md:w-1/3">
-          <Button className="text-sm" size="icon-lg" variant={"outline"}>
+          {/* <Button className="text-sm" size="icon-lg" variant={"outline"}>
             <ShoppingCartIcon />
-          </Button>
+          </Button> */}
+          <CartModal />
         </div>
       </div>
     </nav>
