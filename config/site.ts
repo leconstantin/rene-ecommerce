@@ -1,9 +1,9 @@
 export const siteConfig = {
-  name: "Rene",
-  url: "https://rene.vercel.app/",
-  ogImage: "https://rene.vercel.app/opengraph-image.png",
+  name: "Rene Store",
+  url: "https://rene-store.vercel.app/",
+  ogImage: "https://rene-store.vercel.app/opengraph-image.png",
   description:
-    "Rene is a platform for you to search for business and share your experience with them.",
+    "Rene Store is a platform for you to search for business and share your experience with them.",
   links: {
     twitter: "https://x.com/rathonrw",
     linkedin: "https://www.linkedin.com/company/rathon",
