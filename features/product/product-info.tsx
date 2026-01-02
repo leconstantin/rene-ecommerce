@@ -15,7 +15,13 @@ import { ProductVariantsSelector } from "./product-variants";
 import ProductQuantity from "./quantity";
 import { RefundSheet } from "./refund-sheet";
 
-export default function ProductInfo({ product }: { product: Product }) {
+export default function ProductInfo({
+  product,
+  refundBody,
+}: {
+  product: Product;
+  refundBody: string;
+}) {
   const { state } = useProduct();
   const [quantity, setQuantity] = useState(1);
   const [, formAction] = useActionState(buyNow, null);
@@ -29,12 +35,20 @@ export default function ProductInfo({ product }: { product: Product }) {
   const defaultVariantId =
     product.variants.length === 1 ? product.variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
-  const handleShare = () => {
-    navigator.clipboard.writeText(
-      `${process.env.NEXT_PUBLIC_SITE_LOGO}/product/${product.handle}`
-    );
-    toast.success("Share Link Copied");
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: product.title,
+        text: product.description,
+        url: `/product/${product.handle}`,
+      });
+    } else {
+      await navigator.clipboard.writeText(`/product/${product.handle}`);
+      toast("Link copied to clipboard.");
+    }
   };
+
   return (
     <div className="flex flex-col gap-6">
       {/* product */}
@@ -139,7 +153,7 @@ export default function ProductInfo({ product }: { product: Product }) {
           )}
         </p>
       </div>
-      <RefundSheet />
+      <RefundSheet refundBody={refundBody} />
       <ProductReviews />
     </div>
   );

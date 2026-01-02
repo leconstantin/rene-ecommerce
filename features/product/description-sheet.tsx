@@ -40,7 +40,7 @@ export function DescriptionSheet({
           </SheetDescription>
         </SheetHeader>
         <div className="no-scrollbar overflow-y-auto px-4 lg:px-6">
-          <Prose className="text-foreground/80" html={productDescription} />
+          <Prose className="text-foreground/90" html={productDescription} />
         </div>
         <SheetFooter className="p-2" />
       </SheetContent>

@@ -4,7 +4,7 @@ import { ImagesCarousel } from "@/features/product/images-carousel";
 import { ProductProvider } from "@/features/product/product-context";
 import ProductInfo from "@/features/product/product-info";
 import RelatedProducts from "@/features/product/related-products";
-import { getProduct } from "@/shopify";
+import { getPage, getProduct } from "@/shopify";
 
 export default function ProductPage(props: PageProps<"/product/[handle]">) {
   return (
@@ -17,6 +17,7 @@ export default function ProductPage(props: PageProps<"/product/[handle]">) {
 async function SuspendedProduct(props: PageProps<"/product/[handle]">) {
   const params = await props.params;
   const product = await getProduct(params.handle);
+  const refundPolicy = await getPage("refund-policy");
 
   if (!product) {
     return notFound();
@@ -54,7 +55,7 @@ async function SuspendedProduct(props: PageProps<"/product/[handle]">) {
             </div>
 
             <div className="basis-full py-6 md:mx-auto md:max-w-xl lg:max-w-full lg:basis-3/7 lg:p-6">
-              <ProductInfo product={product} />
+              <ProductInfo product={product} refundBody={refundPolicy.body} />
             </div>
           </div>
         </ProductProvider>
