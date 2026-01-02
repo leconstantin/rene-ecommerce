@@ -49,6 +49,13 @@ export async function SiteFooter() {
           <Suspense>
             <FooterDate />
           </Suspense>
+          <a
+            href="http://rathon-rw.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Built by Rathon
+          </a>
         </div>
       </div>
     </footer>
