@@ -2,9 +2,11 @@ import type { Route } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { footerLinks } from "@/config/data";
+import { getMenu } from "@/shopify";
 import FooterDate from "./footer-date";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const menu = await getMenu("nextjs-footer-menu");
   return (
     <footer className="container bg-black text-white">
       <div className="flex flex-col gap-10 py-20 lg:gap-16">
@@ -28,15 +30,25 @@ export function SiteFooter() {
               ))}
             </ul>
           ))}
+          {menu && menu.length > 0 ? (
+            <ul className="space-y-3">
+              {menu.map((item) => (
+                <li key={item.title}>
+                  <Link
+                    className="font-medium text-white/95 text-xs capitalize underline-offset-2 hover:text-white hover:underline"
+                    href={item.path as Route}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
         <div className="flex max-w-3xl flex-col gap-5 text-white/80 text-xs lg:flex-row lg:items-center">
           <Suspense>
             <FooterDate />
           </Suspense>
-          <Link href={"/"}>Refund Policy</Link>
-          <Link href={"/"}>Terms of Service</Link>
-          <Link href={"/"}>Privacy Policy</Link>
-          <Link href={"/"}>Site by Rathon</Link>
         </div>
       </div>
     </footer>

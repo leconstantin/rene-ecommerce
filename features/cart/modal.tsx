@@ -36,9 +36,9 @@ export default function CartModal() {
         <CartModalTrigger />
       </Suspense>
       <SheetContent>
-        <SheetHeader>
+        <SheetHeader className="pb-0">
           <SheetTitle>My Cart</SheetTitle>
-          <SheetDescription className="hidden">
+          <SheetDescription className="sr-only">
             Review your cart items
           </SheetDescription>
         </SheetHeader>
@@ -99,7 +99,7 @@ function CartModalContent() {
 
   if (!cart || cart.lines.length === 0) {
     return (
-      <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden p-4">
+      <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden p-2 md:p-4">
         <ShoppingCartIcon className="h-16" />
         <p className="mt-6 text-center font-bold text-2xl">
           Your cart is empty.
@@ -109,7 +109,7 @@ function CartModalContent() {
   }
 
   return (
-    <div className="flex h-full flex-col justify-between overflow-hidden p-4">
+    <div className="flex h-full flex-col justify-between overflow-hidden p-2 md:p-4">
       <ul className="grow overflow-auto">
         {cart.lines
           .sort((a, b) =>
@@ -179,13 +179,13 @@ function CartModalContent() {
                       className="flex justify-end space-y-2 text-right text-sm"
                       currencyCode={item.cost.totalAmount.currencyCode}
                     />
-                    <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
+                    <div className="ml-auto flex h-8 flex-row items-center rounded-full border border-neutral-200 md:h-9 dark:border-neutral-700">
                       <EditItemQuantityButton
                         item={item}
                         optimisticUpdate={updateCartItem}
                         type="minus"
                       />
-                      <p className="w-6 text-center">
+                      <p className="w-4 text-center md:w-6">
                         <span className="w-full text-sm">{item.quantity}</span>
                       </p>
                       <EditItemQuantityButton

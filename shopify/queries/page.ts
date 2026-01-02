@@ -27,6 +27,15 @@ export const getPageQuery = /* GraphQL */ `
   ${pageFragment}
 `;
 
+export const getPolicyQuery = /* GraphQL */ `
+  query getPolicy($handle: String!) {
+    pageByHandle(handle: $handle) {
+      ...page
+    }
+  }
+  ${pageFragment}
+`;
+
 export const getPagesQuery = /* GraphQL */ `
   query getPages {
     pages(first: 100) {

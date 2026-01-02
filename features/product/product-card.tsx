@@ -45,9 +45,9 @@ export function ProductCard({ product }: { product: Product }) {
           />
 
           <Price
-            amount={product.priceRange.minVariantPrice.amount}
+            amount={product.priceRange.maxVariantPrice.amount}
             className="text-muted-foreground line-through"
-            currencyCode={product.priceRange.minVariantPrice.currencyCode}
+            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
             showCurrencyCode={false}
           />
         </div>

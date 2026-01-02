@@ -14,10 +14,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { siteConfig } from "@/config/site";
 import type { Menu } from "@/shopify/types";
 import Search, { SearchSkeleton } from "./search";
-
-const { SITE_NAME } = process.env;
 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +29,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       </SheetTrigger>
       <SheetContent className="w-full">
         <SheetHeader>
-          <SheetTitle>Menu - {SITE_NAME}</SheetTitle>
+          <SheetTitle>Menu - {siteConfig.name}</SheetTitle>
           <SheetDescription>
             Explore our products and find what you need.For any questions,
             please contact us.
@@ -51,9 +50,9 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
           </div>
         </div>
         <SheetFooter>
-          <Button type="submit">Cart</Button>
+          <Button type="submit">Contact us</Button>
           <SheetClose asChild>
-            <Button variant="outline">Contact us</Button>
+            <Button variant="outline">Close</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
