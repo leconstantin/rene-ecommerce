@@ -99,7 +99,7 @@ function CartModalContent() {
 
   if (!cart || cart.lines.length === 0) {
     return (
-      <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
+      <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden p-4">
         <ShoppingCartIcon className="h-16" />
         <p className="mt-6 text-center font-bold text-2xl">
           Your cart is empty.
@@ -109,8 +109,8 @@ function CartModalContent() {
   }
 
   return (
-    <div className="flex h-full flex-col justify-between overflow-hidden p-1">
-      <ul className="grow overflow-auto py-4">
+    <div className="flex h-full flex-col justify-between overflow-hidden p-4">
+      <ul className="grow overflow-auto">
         {cart.lines
           .sort((a, b) =>
             a.merchandise.product.title.localeCompare(
@@ -234,7 +234,7 @@ function CheckoutButton() {
 
   return (
     <button
-      className="block w-full rounded-full bg-blue-600 p-3 text-center font-medium text-sm text-white opacity-90 hover:opacity-100"
+      className="block w-full rounded-full bg-brand p-3 text-center font-medium text-sm text-white opacity-90 hover:bg-brand-hover hover:opacity-100"
       disabled={pending}
       type="submit"
     >

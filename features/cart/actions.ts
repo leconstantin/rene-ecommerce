@@ -42,7 +42,47 @@ export async function addItem(
   }
 
   try {
-    await addToCart([{ merchandiseId: selectedVariantId, quantity }]);
+    const cart = await getCart();
+    const existingItem = cart?.lines.find(
+      (line) => line.merchandise.id === selectedVariantId
+    );
+
+    if (existingItem?.id && cart) {
+      const newQuantity = existingItem.quantity + quantity;
+      console.log("Item exists, updating quantity to:", newQuantity);
+
+      const result = await updateCart([
+        {
+          id: existingItem.id,
+          merchandiseId: selectedVariantId,
+          quantity: newQuantity,
+        },
+      ]);
+
+      if (
+        result.warnings?.some((w) => w.code === "MERCHANDISE_NOT_ENOUGH_STOCK")
+      ) {
+        return "Variant is no longer available";
+      }
+
+      updateTag(TAGS.cart);
+      return "Item added successfully";
+    }
+
+    const result = await addToCart([
+      { merchandiseId: selectedVariantId, quantity },
+    ]);
+
+    if (result.error) {
+      return result.error;
+    }
+
+    if (
+      result.warnings?.some((w) => w.code === "MERCHANDISE_NOT_ENOUGH_STOCK")
+    ) {
+      return "Variant is no longer available";
+    }
+
     updateTag(TAGS.cart);
     return "Item added successfully";
   } catch (e) {
@@ -98,19 +138,36 @@ export async function updateItemQuantity(
         updateTag(TAGS.cart);
         return "Item removed successfully";
       }
-      await updateCart([
+      const result = await updateCart([
         {
           id: lineItem.id,
           merchandiseId,
           quantity,
         },
       ]);
+
+      if (
+        result.warnings?.some((w) => w.code === "MERCHANDISE_NOT_ENOUGH_STOCK")
+      ) {
+        return "Variant is no longer available";
+      }
+
       updateTag(TAGS.cart);
       return "Item quantity updated successfully";
     }
     if (quantity > 0) {
       // If the item doesn't exist in the cart and quantity > 0, add it
-      await addToCart([{ merchandiseId, quantity }]);
+      const result = await addToCart([{ merchandiseId, quantity }]);
+
+      if (result.error) {
+        return result.error;
+      }
+      if (
+        result.warnings?.some((w) => w.code === "MERCHANDISE_NOT_ENOUGH_STOCK")
+      ) {
+        return "Variant is no longer available";
+      }
+
       updateTag(TAGS.cart);
       return "Item added successfully";
     }

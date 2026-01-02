@@ -205,6 +205,10 @@ export type ShopifyAddToCartOperation = {
         field: string[];
         message: string;
       }[];
+      warnings?: {
+        code: string;
+        message: string;
+      }[];
     };
   };
   variables: {
@@ -232,6 +236,10 @@ export type ShopifyUpdateCartOperation = {
   data: {
     cartLinesUpdate: {
       cart: ShopifyCart;
+      warnings?: {
+        code: string;
+        message: string;
+      }[];
     };
   };
   variables: {

@@ -21,6 +21,7 @@ export default function Search({ onSubmit }: { onSubmit?: () => void }) {
       <InputGroup>
         <InputGroupInput
           autoComplete="off"
+          autoFocus={false}
           defaultValue={searchParams?.get("q") || ""}
           key={searchParams?.get("q")}
           name="q"

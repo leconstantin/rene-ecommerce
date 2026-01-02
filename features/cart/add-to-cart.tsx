@@ -90,6 +90,8 @@ export function AddToCart({
   useEffect(() => {
     if (message === "Item added successfully") {
       toast.success("Added to cart");
+    } else if (message === "Variant is no longer available") {
+      toast.error(message);
     } else if (
       typeof message === "string" &&
       message.toLowerCase().includes("error")

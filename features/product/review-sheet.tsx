@@ -22,7 +22,7 @@ export function ReviewSheet() {
         </Button>
       </SheetTrigger>
       <SheetContent
-        className="fixed top-5 right-5 bottom-5 h-[calc(100vh-2rem)] rounded-2xl lg:max-w-[490px]"
+        className="w-full lg:fixed lg:top-5 lg:right-5 lg:bottom-5 lg:h-[calc(100vh-2rem)] lg:max-w-[490px] lg:rounded-2xl"
         showCloseButton={false}
       >
         <SheetHeader>

@@ -403,7 +403,11 @@ export async function createCart(): Promise<Cart> {
 
 export async function addToCart(
   lines: { merchandiseId: string; quantity: number }[]
-): Promise<Cart> {
+): Promise<{
+  cart: Cart | undefined;
+  warnings?: { code: string; message: string }[];
+  error?: string;
+}> {
   console.log("shopify.addToCart: lines =", lines);
   let cartId = (await cookies()).get("cartId")?.value;
 
@@ -429,9 +433,16 @@ export async function addToCart(
       "shopify.addToCart: userErrors =",
       JSON.stringify(cartLinesAdd.userErrors, null, 2)
     );
+    return {
+      cart: undefined,
+      error: cartLinesAdd.userErrors[0].message,
+    };
   }
 
-  return reshapeCart(cartLinesAdd.cart);
+  return {
+    cart: reshapeCart(cartLinesAdd.cart),
+    warnings: cartLinesAdd.warnings,
+  };
 }
 
 export async function removeFromCart(lineIds: string[]): Promise<Cart> {
@@ -455,7 +466,11 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
 
 export async function updateCart(
   lines: { id: string; merchandiseId: string; quantity: number }[]
-): Promise<Cart> {
+): Promise<{
+  cart: Cart | undefined;
+  warnings?: { code: string; message: string }[];
+}> {
+  console.log("shopify.updateCart: lines =", lines);
   const cartId = (await cookies()).get("cartId")?.value;
 
   if (!cartId) {
@@ -471,7 +486,14 @@ export async function updateCart(
     cache: "no-store",
   });
 
-  return reshapeCart(res.body.data.cartLinesUpdate.cart);
+  console.log(
+    "shopify.updateCart: warnings =",
+    res.body.data.cartLinesUpdate.warnings
+  );
+  return {
+    cart: reshapeCart(res.body.data.cartLinesUpdate.cart),
+    warnings: res.body.data.cartLinesUpdate.warnings,
+  };
 }
 
 export async function getCart(): Promise<Cart | undefined> {
