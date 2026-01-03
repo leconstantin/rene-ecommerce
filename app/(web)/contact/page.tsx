@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { siteConfig } from "@/config/site";
 import coverImage from "@/public/contact.webp";
 
 export const metadata: Metadata = {
@@ -31,13 +32,15 @@ export default function Contact() {
           </div>
 
           <div className="text-sm">
-            <p>Consignment</p>
-            <p className="text-foreground/80">sell@renestore.com</p>
-          </div>
-
-          <div className="text-sm">
-            <p>Phone</p>
-            <p className="text-foreground/80">+250 788 243 445</p>
+            <p>Instagram</p>
+            <a
+              className="text-foreground/80"
+              href={siteConfig.links.instagram}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              karanganwastore
+            </a>
           </div>
         </div>
       </div>

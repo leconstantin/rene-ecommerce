@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import LogoSquare from "@/components/icons/logo-square";
+import { siteConfig } from "@/config/site";
 import CartModal from "@/features/cart/modal";
 import { getMenu } from "@/shopify/index";
 import MenuItems from "./menu-items";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
-
-const { SITE_NAME } = process.env;
 
 export async function SiteHeader() {
   const menu = await getMenu("frontend-header-menu");
@@ -28,7 +27,7 @@ export async function SiteHeader() {
           >
             <LogoSquare />
             <div className="ml-2 flex-none font-medium text-sm uppercase md:hidden lg:block">
-              {SITE_NAME}
+              {siteConfig.name}
             </div>
           </Link>
           <Suspense fallback={null}>

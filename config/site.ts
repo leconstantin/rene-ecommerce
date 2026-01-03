@@ -1,13 +1,12 @@
 export const siteConfig = {
-  name: "Rene Store",
-  url: "https://rene-store.vercel.app/",
-  ogImage: "https://rene-store.vercel.app/opengraph-image.png",
-  description:
-    "Rene Store is a platform for you to search for business and share your experience with them.",
+  name: "Karanganwa Store",
+  url: "https://karanganwastore.vercel.app/",
+  ogImage: "https://karanganwastore.vercel.app/opengraph-image.png",
+  description: "Karanganwa Store made shopping simple & safe",
   links: {
     twitter: "https://x.com/rathonrw",
     linkedin: "https://www.linkedin.com/company/rathon",
-    instagram: "https://www.instagram.com/rathonrw/",
+    instagram: "https://www.instagram.com/karanganwastore/",
     youtube: "https://www.youtube.com/@RathonRw",
     email: "mailto:rathonrw@gmail.com",
     whatsapp: "https://wa.me/250792636403",

@@ -1,23 +1,19 @@
 import clsx from "clsx";
-import LogoIcon from "@/components/icons/logo";
+import Image from "next/image";
+import logo from "@/public/icon.png";
 
 export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
   return (
     <div
       className={clsx(
-        "flex flex-none items-center justify-center border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-black",
+        "flex flex-none items-center justify-center bg-white dark:border-neutral-700 dark:bg-black",
         {
           "h-10 w-10 rounded-xl": !size,
           "h-[30px] w-[30px] rounded-lg": size === "sm",
         }
       )}
     >
-      <LogoIcon
-        className={clsx({
-          "h-4 w-4": !size,
-          "h-2.5 w-2.5": size === "sm",
-        })}
-      />
+      <Image alt="Logo" src={logo} />
     </div>
   );
 }
