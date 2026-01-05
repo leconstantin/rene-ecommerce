@@ -23,6 +23,7 @@ export async function SiteFooter() {
                   <Link
                     className="font-medium text-white/95 text-xs capitalize underline-offset-2 hover:text-white hover:underline"
                     href={item.href as Route}
+                    target={item.external ? "_blank" : "_self"}
                   >
                     {item.name}
                   </Link>

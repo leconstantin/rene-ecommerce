@@ -25,7 +25,7 @@ export default function About() {
           <h1 className="font-bold text-2xl">About Us</h1>
 
           <p className="text-foreground/80">
-            Karanganwastore is an online marketplace built to make shopping
+            Karanganwa Store is an online marketplace built to make shopping
             easy, reliable, and enjoyable. It connects customers with quality
             products through a smooth digital experience, focusing on trust,
             simplicity, and value.

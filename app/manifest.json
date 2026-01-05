@@ -1,6 +1,6 @@
 {
   "name": "Karanganwa Store",
-  "short_name": "KA-Store",
+  "short_name": "KA_Store",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

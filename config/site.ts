@@ -4,11 +4,11 @@ export const siteConfig = {
   ogImage: "https://karanganwastore.vercel.app/opengraph-image.png",
   description: "Karanganwa Store made shopping simple & safe",
   links: {
-    twitter: "https://x.com/rathonrw",
+    tiktok: "https://www.tiktok.com/@karanganwastore",
     linkedin: "https://www.linkedin.com/company/rathon",
     instagram: "https://www.instagram.com/karanganwastore/",
     youtube: "https://www.youtube.com/@RathonRw",
-    email: "mailto:rathonrw@gmail.com",
+    email: "karanganwarene1@gmail.com",
     whatsapp: "https://wa.me/250792636403",
     github: "https://github.com/RathonRw",
   },

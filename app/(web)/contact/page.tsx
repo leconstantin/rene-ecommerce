@@ -26,22 +26,33 @@ export default function Contact() {
           <h1 className="font-bold text-2xl">Contact</h1>
           <p>Please contact us with any questions or concerns.</p>
 
-          <div className="text-sm">
+          <a
+            className="text-sm"
+            href="mailto:karanganwarene1@gmail.com"
+            rel="noopener"
+          >
             <p>General</p>
-            <p className="text-foreground/80">help@renestore.com</p>
-          </div>
+            <p className="text-foreground/80">karanganwarene1@gmail.com</p>
+          </a>
 
-          <div className="text-sm">
+          <a
+            className="text-sm"
+            href={siteConfig.links.instagram}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <p>Instagram</p>
-            <a
-              className="text-foreground/80"
-              href={siteConfig.links.instagram}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              karanganwastore
-            </a>
-          </div>
+            <p className="text-foreground/80">karanganwastore</p>
+          </a>
+          <a
+            className="text-sm"
+            href={siteConfig.links.tiktok}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <p>Tiktok</p>
+            <p className="text-foreground/80">@karanganwastore</p>
+          </a>
         </div>
       </div>
     </div>

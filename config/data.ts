@@ -9,9 +9,21 @@ export const footerLinks = [
 
   {
     links: [
-      { name: "instagram", href: "/", external: false },
-      { name: "facebook", href: "/", external: false },
-      { name: "@renestore", href: "/tourism", external: false },
+      {
+        name: "instagram",
+        href: "https://www.instagram.com/karanganwastore",
+        external: true,
+      },
+      {
+        name: "tiktok",
+        href: "https://www.tiktok.com/@karanganwastore",
+        external: true,
+      },
+      {
+        name: "Gmail",
+        href: "mailto:karanganwarene1@gmail.com",
+        external: true,
+      },
     ],
   },
 ];
