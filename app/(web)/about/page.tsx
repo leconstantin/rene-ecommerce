@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import coverImage from "@/public/contact.webp";
+import coverImage from "@/public/about.png";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -15,7 +15,7 @@ export default function About() {
           <AspectRatio className="rounded-lg bg-muted" ratio={424 / 283}>
             <Image
               alt="Photo by Drew Beamer"
-              className="h-full w-full rounded-lg object-cover"
+              className="h-full w-full rounded-lg object-cover object-top"
               fill
               src={coverImage}
             />
