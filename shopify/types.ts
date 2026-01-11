@@ -36,6 +36,7 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  quantityAvailable: number;
 };
 export type SEO = {
   title: string;
@@ -181,6 +182,7 @@ export type CartItem = {
       value: string;
     }[];
     product: CartProduct;
+    quantityAvailable: number;
   };
 };
 

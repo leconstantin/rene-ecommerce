@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { useActionState } from "react";
+import { toast } from "sonner";
 import type { CartItem } from "@/shopify/types";
 import { updateItemQuantity } from "./actions";
 
@@ -36,7 +37,7 @@ export function EditItemQuantityButton({
 }: {
   item: CartItem;
   type: "plus" | "minus";
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: optimistic update callback type is flexible
   optimisticUpdate: any;
 }) {
   const [message, formAction] = useActionState(updateItemQuantity, null);
@@ -49,6 +50,13 @@ export function EditItemQuantityButton({
   return (
     <form
       action={async () => {
+        if (
+          type === "plus" &&
+          item.quantity >= item.merchandise.quantityAvailable
+        ) {
+          toast.error("That quantity is not available");
+          return;
+        }
         optimisticUpdate(payload.merchandiseId, type);
         await updateItemQuantityAction();
       }}

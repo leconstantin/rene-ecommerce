@@ -82,6 +82,10 @@ export function AddToCart({
   const handleSubmit = async (formData: FormData) => {
     console.log("AddToCart handleSubmit: quantity from prop =", quantity);
     if (finalVariant) {
+      if (quantity > finalVariant.quantityAvailable) {
+        toast.error("That quantity is not available");
+        return;
+      }
       addCartItem(finalVariant, product, quantity);
     }
     await formAction(formData);
