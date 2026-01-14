@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getProductRecommendations } from "@/shopify";
-import { ProductCard } from "./product-card";
+import { ProductCard } from "./card";
 export default async function RelatedProducts({ id }: { id: string }) {
   const relatedProducts = await getProductRecommendations(id);
 

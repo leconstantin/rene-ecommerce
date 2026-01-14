@@ -16,7 +16,11 @@ export function RefundSheet({ refundBody }: { refundBody: string }) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="w-fit rounded-full" size="lg" variant={"outline"}>
+        <Button
+          className="w-fit flex-1 rounded-full"
+          size="lg"
+          variant={"outline"}
+        >
           <SquareArrowLeftIcon />
           Refund Policy
         </Button>

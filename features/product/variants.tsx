@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { ProductOption, ProductVariant } from "@/shopify/types";
-import { useProduct, useUpdateURL } from "./product-context";
+import { useProduct, useUpdateURL } from "./context";
 
 type Combination = {
   id: string;

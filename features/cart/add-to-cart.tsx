@@ -7,7 +7,7 @@ import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { Product, ProductVariant } from "@/shopify/types";
-import { useProduct } from "../product/product-context";
+import { useProduct } from "../product/context";
 import { addItem } from "./actions";
 import { useCart } from "./cart-context";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { HeartIcon, ShareIcon, StarIcon, TruckIcon } from "lucide-react";
+import { ShareIcon, StarIcon, TruckIcon } from "lucide-react";
 import { useActionState, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,12 @@ import Price from "@/features/_shared/price";
 import type { Product, ProductVariant } from "@/shopify/types";
 import { buyNow } from "../cart/actions";
 import { AddToCart } from "../cart/add-to-cart";
+import { useProduct } from "./context";
 import { DescriptionSheet } from "./description-sheet";
-import { useProduct } from "./product-context";
-import ProductReviews from "./product-reviews";
-import { ProductVariantsSelector } from "./product-variants";
 import ProductQuantity from "./quantity";
 import { RefundSheet } from "./refund-sheet";
+import ProductReviews from "./reviews";
+import { ProductVariantsSelector } from "./variants";
 
 export default function ProductInfo({
   product,
@@ -89,7 +89,7 @@ export default function ProductInfo({
             <TruckIcon className="size-4" />
             <p className="text-sm">Shipping calculated at checkout</p>
           </div>
-          <p className="text-brand text-sm">Add address</p>
+          {/* <p className="text-brand text-sm">Add address</p> */}
         </div>
       </div>
       {/* product options */}
@@ -125,10 +125,7 @@ export default function ProductInfo({
           </Button>
         </form>
         <div className="flex w-full gap-2.5">
-          <Button className="flex-1 rounded-full" size="lg" variant={"outline"}>
-            <HeartIcon />
-            Save
-          </Button>
+          <RefundSheet refundBody={refundBody} />
           <Button
             className="flex-1 rounded-full"
             onClick={handleShare}
@@ -153,7 +150,6 @@ export default function ProductInfo({
           )}
         </p>
       </div>
-      <RefundSheet refundBody={refundBody} />
       <ProductReviews />
     </div>
   );

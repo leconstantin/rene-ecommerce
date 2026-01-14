@@ -35,7 +35,7 @@ export function ImagesCarousel({ images }: { images: ShopifyImage[] }) {
   return (
     <div className="top-6 flex gap-2 lg:sticky">
       <div className="hidden flex-col gap-2 md:flex">
-        {images.map((image, index) => (
+        {images.slice(0, 6).map((image, index) => (
           <li className="size-16 list-none" key={image.url}>
             <button
               className="h-full w-full cursor-pointer"

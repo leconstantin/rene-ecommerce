@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { ProductProvider } from "@/features/product/context";
 import { ImagesCarousel } from "@/features/product/images-carousel";
-import { ProductProvider } from "@/features/product/product-context";
-import ProductInfo from "@/features/product/product-info";
+import ProductInfo from "@/features/product/info";
 import RelatedProducts from "@/features/product/related-products";
 import { getPage, getProduct } from "@/shopify";
 

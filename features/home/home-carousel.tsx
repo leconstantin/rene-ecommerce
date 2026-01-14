@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getCollectionProducts } from "@/shopify";
-import { ProductCard } from "../product/product-card";
+import { ProductCard } from "../product/card";
 export async function HomeCarousel() {
   // Collections that start with `hidden-*` are hidden from the search page.
   const products = await getCollectionProducts({

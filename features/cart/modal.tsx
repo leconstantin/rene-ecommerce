@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -21,8 +20,8 @@ import { DEFAULT_OPTION } from "@/shopify/constants";
 import Price from "../_shared/price";
 import { handleCheckout } from "./actions";
 import { useCart, useCartUI } from "./cart-context";
-import { DeleteItemButton } from "./delete-item-button";
-import { EditItemQuantityButton } from "./edit-item-quantity-button";
+import { DeleteItemButton } from "./delete-item";
+import { EditItemQuantityButton } from "./edit-quantity";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -38,31 +37,12 @@ export default function CartModal() {
       <SheetContent>
         <SheetHeader className="pb-0">
           <SheetTitle>My Cart</SheetTitle>
-          <SheetDescription className="sr-only">
-            Review your cart items
-          </SheetDescription>
         </SheetHeader>
         <Suspense fallback={<CartContentSkeleton />}>
           <CartModalContent />
         </Suspense>
       </SheetContent>
     </Sheet>
-  );
-}
-
-function CartTriggerSkeleton() {
-  return (
-    <Button className="relative" disabled size={"icon-lg"} variant={"outline"}>
-      <ShoppingCartIcon />
-    </Button>
-  );
-}
-
-function CartContentSkeleton() {
-  return (
-    <div className="mt-20 flex w-full flex-col items-center justify-center">
-      <LoadingDots className="bg-blue-600" />
-    </div>
   );
 }
 
@@ -240,5 +220,21 @@ function CheckoutButton() {
     >
       {pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}
     </button>
+  );
+}
+
+function CartTriggerSkeleton() {
+  return (
+    <Button className="relative" disabled size={"icon-lg"} variant={"outline"}>
+      <ShoppingCartIcon />
+    </Button>
+  );
+}
+
+function CartContentSkeleton() {
+  return (
+    <div className="mt-20 flex w-full flex-col items-center justify-center">
+      <LoadingDots className="bg-blue-600" />
+    </div>
   );
 }

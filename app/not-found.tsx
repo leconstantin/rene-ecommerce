@@ -1,4 +1,5 @@
-import { Compass, Home } from "lucide-react";
+import { Home } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
@@ -33,9 +34,7 @@ export default function NotFoundPage() {
                 </Button>
 
                 <Button asChild variant="outline">
-                  <a href="/">
-                    <Compass /> Explore
-                  </a>
+                  <Link href="/contact">Contact Us</Link>
                 </Button>
               </div>
             </EmptyContent>

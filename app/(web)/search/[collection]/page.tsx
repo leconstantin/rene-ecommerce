@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Grid from "@/features/grid";
-import { ProductCard } from "@/features/product/product-card";
+import { ProductCard } from "@/features/product/card";
 import { defaultSort, sorting } from "@/shopify/constants";
 import { getCollection, getCollectionProducts } from "@/shopify/index";
 
